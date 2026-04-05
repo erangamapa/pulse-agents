@@ -1,0 +1,56 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pulse-agents
+      - uses: actions/checkout@v4
+        with:
+          repository: erangamapa/sportsbook-contracts
+          path: sportsbook-contracts
+      - uses: actions/checkout@v4
+        with:
+          repository: erangamapa/agentloop
+          path: agentloop
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pulse-agents/package-lock.json
+      - run: npm ci
+        working-directory: sportsbook-contracts/packages/ts
+      - run: npm ci
+        working-directory: agentloop
+      - run: npm ci
+        working-directory: pulse-agents
+      - run: npm run typecheck
+        working-directory: pulse-agents
+      - run: npm test
+        working-directory: pulse-agents
+  scoring:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pulse-agents
+      - uses: actions/checkout@v4
+        with:
+          repository: erangamapa/sportsbook-contracts
+          path: sportsbook-contracts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -e ../../../sportsbook-contracts/packages/py
+        working-directory: pulse-agents/python/scoring
+      - run: pip install -e '.[dev]'
+        working-directory: pulse-agents/python/scoring
+      - run: ruff check .
+        working-directory: pulse-agents/python/scoring
+      - run: pytest -q
+        working-directory: pulse-agents/python/scoring
