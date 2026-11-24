@@ -10,11 +10,7 @@
     "declaration": true,
     "outDir": "dist",
     "skipLibCheck": true,
-    "types": ["node"],
-    "paths": {
-      "agentloop": ["../agentloop/src/index.ts"],
-      "sportsbook-contracts": ["../sportsbook-contracts/packages/ts/src/index.ts"]
-    }
+    "types": ["node"]
   },
   "include": ["src", "tests", "vitest.config.ts"]
 }

@@ -20,9 +20,9 @@
     "@langchain/core": "^0.3.0",
     "@langchain/langgraph": "^0.2.0",
     "@langchain/openai": "^0.3.0",
-    "agentloop": "file:../agentloop",
+    "agentloop": "git+https://github.com/erangamapa/agentloop.git#main",
     "pino": "^9.4.0",
-    "sportsbook-contracts": "file:../sportsbook-contracts/packages/ts",
+    "sportsbook-contracts": "git+https://github.com/erangamapa/sportsbook-contracts.git#v0.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
