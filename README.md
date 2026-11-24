@@ -60,7 +60,7 @@ python/scoring/      FastAPI win probability sidecar
 
 ## Running it
 
-Node 22. The sibling repos `sportsbook-contracts` and `agentloop` have to sit next to this one, because both are file dependencies.
+Node 22. `agentloop` and `sportsbook-contracts` are git dependencies pinned by the lockfile and are built by their own `prepare` scripts on install, so a lone clone works. Git must be on the path.
 
 ```
 cp .env.example .env
@@ -69,15 +69,14 @@ npm run typecheck
 npm test
 ```
 
-Neither sibling ships a build, so `tsconfig.json` and `vitest.config.ts` point the package names at their source. Tests use no network and no API keys. Models are injected and faked.
+Tests use no network and no API keys. Models are injected and faked.
 
 The sidecar needs Python 3.11.
 
 ```
 cd python/scoring
 python3.11 -m venv .venv
-.venv/bin/pip install -e ../../../sportsbook-contracts/packages/py
-.venv/bin/pip install -e '.[dev]'
+.venv/bin/pip install -e '.[dev]'  # pulls sportsbook-contracts from git
 .venv/bin/pytest
 .venv/bin/python -m scoring.train_fixture artifacts/win_model.joblib
 SCORING_MODEL_PATH=artifacts/win_model.joblib .venv/bin/uvicorn scoring.main:app
