@@ -11,7 +11,9 @@
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "license": "MIT",
   "author": "Eranga Mapa",
   "dependencies": {
@@ -20,7 +22,7 @@
     "@langchain/core": "^0.3.0",
     "@langchain/langgraph": "^0.2.0",
     "@langchain/openai": "^0.3.0",
-    "agentloop": "git+https://github.com/erangamapa/agentloop.git#main",
+    "agentloop": "github:erangamapa/agentloop#v0.1.1",
     "pino": "^9.4.0",
     "sportsbook-contracts": "git+https://github.com/erangamapa/sportsbook-contracts.git#v0.1.0",
     "zod": "^3.23.8"
